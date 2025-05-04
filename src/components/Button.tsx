@@ -22,6 +22,11 @@ type SuperButton = ButtonProps & {
 
 type ReactButtonProps = React.ComponentPropsWithoutRef<"button"> // This will automatically type all the props which are native to button html element
 
+type User = {
+  name: string
+  age: number
+}
+
 export default function Button({
   backgroundColor,
   fontSize,
@@ -34,10 +39,21 @@ export default function Button({
   count = 0,
   ...rest
 }: ButtonProps & ReactButtonProps) {
+  const ref = React.useRef<HTMLButtonElement>(null)
+
+  const [number, setNumber] = React.useState(0)
+  const [user, setUser] = React.useState<User | null>(null) // specifying type is needed for objects
+  const name = user?.name
+
+  const handleClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => setCount((prev) => prev + 1)
+
   return (
     <button
       className="cursor-pointer rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-      onClick={() => setCount((prev) => prev + 1)}
+      onClick={handleClick}
+      ref={ref}
       {...rest}
     >
       Click me
