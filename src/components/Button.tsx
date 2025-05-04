@@ -1,3 +1,5 @@
+import React from "react"
+
 type Color = "red" | "blue" | "green" | "purple" // limited to these colors with union type
 
 type ButtonProps = {
@@ -13,6 +15,13 @@ type ButtonProps = {
   count?: number
 }
 
+// Intersecting
+type SuperButton = ButtonProps & {
+  size: "md" | "lg"
+}
+
+type ReactButtonProps = React.ComponentPropsWithoutRef<"button"> // This will automatically type all the props which are native to button html element
+
 export default function Button({
   backgroundColor,
   fontSize,
@@ -23,11 +32,13 @@ export default function Button({
   children,
   setCount,
   count = 0,
-}: ButtonProps) {
+  ...rest
+}: ButtonProps & ReactButtonProps) {
   return (
     <button
       className="cursor-pointer rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
       onClick={() => setCount((prev) => prev + 1)}
+      {...rest}
     >
       Click me
     </button>

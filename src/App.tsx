@@ -19,6 +19,10 @@ function App() {
         padding={[5, 10, 15, 20]}
         onClick={onClick}
         setCount={setCount}
+        type="submit"
+        autoFocus={true}
+        defaultValue="test"
+        className="test"
       >
         <h1>hi</h1>
       </Button>
