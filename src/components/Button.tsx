@@ -1,6 +1,7 @@
 import React from "react"
 
 type Color = "red" | "blue" | "green" | "purple" // limited to these colors with union type
+type ButtonColor = "red" | "blue" | "green" | "purple" // limited to these colors with union type
 
 type ButtonProps = {
   //children: React.ReactNode; // this means it can be anything, but in this case it will be a string
@@ -24,8 +25,16 @@ type ReactButtonProps = React.ComponentPropsWithoutRef<"button"> // This will au
 
 type User = {
   name: string
-  age: number
+  id: number
 }
+
+type Guest = Omit<User, "name"> // this will remove the name property from the User type
+
+const buttonTextOptions = [
+  "Click me",
+  "Click me again",
+  "Click me one more time",
+] as const // this is now a readonly array, editting is not allowed
 
 export default function Button({
   backgroundColor,
@@ -39,6 +48,13 @@ export default function Button({
   count = 0,
   ...rest
 }: ButtonProps & ReactButtonProps) {
+  React.useEffect(() => {
+    const previousButtonColor = localStorage.getItem(
+      "buttonColor",
+    ) as ButtonColor // this will get the button color from local storage and cast it to ButtonColor type
+    // This to say, you know better than typescript, TS will cast the ouput to ButtonColor type
+  }, [])
+
   const ref = React.useRef<HTMLButtonElement>(null)
 
   const [number, setNumber] = React.useState(0)
@@ -56,7 +72,7 @@ export default function Button({
       ref={ref}
       {...rest}
     >
-      Click me
+      {buttonTextOptions.map((option) => option)}
     </button>
   )
 }
