@@ -10,7 +10,7 @@ type ButtonProps = {
   fontSize: number
   pillShape?: boolean // optional prop
   padding: [number, number, number, number] // tuple type, this mean it must be an array of 4 numbers, this is a more specific array type
-  onClick: (fuck: string) => void // function type, this mean it must be a function that returns void
+  onClick: (message: string) => void // function type, this mean it must be a function that returns void
   setCount: React.Dispatch<React.SetStateAction<number>>
   count?: number
 }
