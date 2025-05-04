@@ -4,14 +4,13 @@ import React from "react"
 function App() {
   const icon = <i></i>
   const [count, setCount] = React.useState(0)
-  console.log(count)
   function onClick() {
     alert("Button clicked")
   }
 
   return (
     <>
-      <Button
+      <Button<number>
         backgroundColor="red"
         fontSize={30}
         pillShape={true}
@@ -23,6 +22,8 @@ function App() {
         autoFocus={true}
         defaultValue="test"
         className="test"
+        countValue={5} // This should allow us to pass any type of valuue
+        countHistory={[1, 2, 3]}
       >
         <h1>hi</h1>
       </Button>

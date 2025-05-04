@@ -36,7 +36,25 @@ const buttonTextOptions = [
   "Click me one more time",
 ] as const // this is now a readonly array, editting is not allowed
 
-export default function Button({
+function convertToArray<T>(value: T): T[] {
+  // this should be able to accept any type of value, using generics
+  return [value]
+}
+
+// convertToArray<number>(5)
+// convertToArray<string>("5")
+
+// This type will accept any type of value, and it will be an array of that type
+// This is a generic type, this means it can be anything, but in this case it will be a number
+// Since we have specified this relationship, we need to specify this function will use the same type, aka the react component function
+type CountProps<T> = {
+  countValue: T // These count values should be the same type
+  countHistory: T[]
+}
+
+// Button component is a generic function because it needs to accept a type parameter for the CountProps to work
+// Then, the CountProps will also take the <T> type parameter
+export default function Button<T>({
   backgroundColor,
   fontSize,
   pillShape,
@@ -46,8 +64,10 @@ export default function Button({
   children,
   setCount,
   count = 0,
+  countValue,
+  countHistory,
   ...rest
-}: ButtonProps & ReactButtonProps) {
+}: ButtonProps & ReactButtonProps & CountProps<T>) {
   React.useEffect(() => {
     const previousButtonColor = localStorage.getItem(
       "buttonColor",
