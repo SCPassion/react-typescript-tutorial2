@@ -1,4 +1,3 @@
-import React from "react"
 type Color = "red" | "blue" | "green" | "purple" // limited to these colors with union type
 
 type ButtonProps = {
@@ -10,6 +9,8 @@ type ButtonProps = {
   pillShape?: boolean // optional prop
   padding: [number, number, number, number] // tuple type, this mean it must be an array of 4 numbers, this is a more specific array type
   onClick: (fuck: string) => void // function type, this mean it must be a function that returns void
+  setCount: React.Dispatch<React.SetStateAction<number>>
+  count?: number
 }
 
 export default function Button({
@@ -20,14 +21,15 @@ export default function Button({
   padding,
   onClick,
   children,
+  setCount,
+  count = 0,
 }: ButtonProps) {
-  const [count, setCount] = React.useState(0)
   return (
     <button
       className="cursor-pointer rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-      onClick={() => onClick("fuck")}
+      onClick={() => setCount((prev) => prev + 1)}
     >
-      {children}
+      Click me
     </button>
   )
 }
