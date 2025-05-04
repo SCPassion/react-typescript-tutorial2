@@ -1,7 +1,7 @@
 import React from "react"
+import { type Color, type ButtonColor } from "./lib/types" // this will import the Color type from the lib/types file
 
-type Color = "red" | "blue" | "green" | "purple" // limited to these colors with union type
-type ButtonColor = "red" | "blue" | "green" | "purple" // limited to these colors with union type
+//type Color = "red" | "blue" | "green" | "purple" // limited to these colors with union type
 
 type ButtonProps = {
   //children: React.ReactNode; // this means it can be anything, but in this case it will be a string
